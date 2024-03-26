@@ -6,13 +6,55 @@
   "license": "UNLICENSED",
   "private": true,
   "dependencies": {
+    "@cap-js/graphql": "^0.10.1",
+    "@sap-cloud-sdk/http-client": "^3.12.1",
+    "@sap-cloud-sdk/resilience": "^3.12.1",
     "@sap/cds": "^7",
-    "express": "^4"
+    "@sap/cds-odata-v2-adapter-proxy": "^1.9.21",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.18.3"
   },
   "devDependencies": {
-    "@cap-js/sqlite": "^1"
+    "@cap-js/sqlite": "^1",
+    "@sap/eslint-plugin-ui5-jsdocs": "^2.0.5",
+    "@sap/ux-specification": "^1.120.5",
+    "@sapui5/ts-types": "^1.92.2",
+    "cds-swagger-ui-express": "^0.8.0",
+    "eslint": "^7.32.0"
   },
   "scripts": {
-    "start": "cds watch"
-  }
+    "start": "cds watch",
+    "watch-product": "cds watch --open product/webapp/index.html?sap-ui-xx-viewCache=false"
+  },
+  "cds": {
+    "i18n": {
+      "default_language": "es",
+      "folders": [
+        "_i18n",
+        "i18n",
+        "i18n/i18n"
+      ]
+    },
+    "protocols": {
+      "graphql": {
+        "path": "/graphql",
+        "impl": "@cap-js/graphql"
+      }
+    },
+    "requires": {
+      "sapbackend": {
+        "kind": "odata-v2",
+        "model": "srv/external/sapbackend",
+        "credentials": {
+          "requestTimeout": 30000,
+          "url": "http://erp13.sap4practice.com:9037/sap/opu/odata/sap/YSAPUI5_SRV_01",
+          "authentication": "NoAuthentication"
+        }
+      }
+    }
+  },
+  "sapux": [
+    "app/product"
+  ]
 }
